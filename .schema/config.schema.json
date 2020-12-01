@@ -223,6 +223,15 @@
       ],
       "description": "En-/disables this component."
     },
+    "handlerSwitchTrue": {
+      "title": "Enabled",
+      "type": "boolean",
+      "default": true,
+      "examples": [
+        true
+      ],
+      "description": "Dis-/enables this component."
+    },
     "scopeStrategy": {
       "title": "Scope Strategy",
       "type": "string",
@@ -1025,6 +1034,9 @@
           "title": "HTTP REST API",
           "additionalProperties": false,
           "properties": {
+            "enabled": {
+              "$ref": "#/definitions/handlerSwitchTrue"
+            },
             "port": {
               "type": "integer",
               "default": 4456,
@@ -1057,6 +1069,9 @@
           "title": "HTTP Reverse Proxy",
           "additionalProperties": false,
           "properties": {
+            "enabled": {
+              "$ref": "#/definitions/handlerSwitchTrue"
+            },
             "port": {
               "type": "integer",
               "default": 4455,
@@ -1089,6 +1104,9 @@
           "title": "Prometheus scraping endpoint",
           "additionalProperties": false,
           "properties": {
+            "enabled": {
+              "$ref": "#/definitions/handlerSwitchTrue"
+            },
             "port": {
               "type": "integer",
               "default": 9000,

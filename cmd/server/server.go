@@ -230,10 +230,16 @@ func RunServe(version, build, date string) func(cmd *cobra.Command, args []strin
 		prometheusRepo := metrics.NewPrometheusRepository(logger)
 
 		var wg sync.WaitGroup
-		tasks := []func(){
-			runAPI(d, adminmw, logger, prometheusRepo),
-			runProxy(d, publicmw, logger, prometheusRepo),
-			runPrometheus(d, logger, prometheusRepo),
+		var tasks []func()
+
+		if viper.GetBool("serve.api.enabled") {
+			tasks = append(tasks, runAPI(d, adminmw, logger, prometheusRepo))
+		}
+		if viper.GetBool("serve.proxy.enabled") {
+			tasks = append(tasks, runProxy(d, publicmw, logger, prometheusRepo))
+		}
+		if viper.GetBool("serve.prometheus.enabled") {
+			tasks = append(tasks, runPrometheus(d, logger, prometheusRepo))
 		}
 		wg.Add(len(tasks))
 		for _, t := range tasks {
